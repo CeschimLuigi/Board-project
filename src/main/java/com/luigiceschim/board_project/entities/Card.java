@@ -1,6 +1,7 @@
 package com.luigiceschim.board_project.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.luigiceschim.board_project.exceptions.MotivoException;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,18 +36,23 @@ public class Card {
     }
 
 
-    public void bloquear(String motivo){
-        if (!(motivo == null)){
-            this.bloqueio = true;
-            this.motivoBloqueio= motivo;
+    public void bloquear(String motivo) {
+        if ((motivo == null || motivo.isBlank())) {
+            throw new MotivoException("ERRO! insira o motivo para fazer o bloqueio");
         }
-        throw new IllegalArgumentException("ERRO! insira o motivo para fazer o bloqueio");
-    }
 
-    public void desbloquear(String motivo){
         this.bloqueio = true;
-        this.motivoBloqueio= motivo;
+        this.motivoBloqueio = motivo;
     }
 
+    public void desbloquear(String motivo) {
+        if (motivo == null || motivo.isBlank()) {
+            throw new MotivoException("ERRO! insira o motivo para fazer o desbloqueio");
+        }
 
+        this.bloqueio = false;
+        this.motivoBloqueio = motivo;
+
+
+    }
 }

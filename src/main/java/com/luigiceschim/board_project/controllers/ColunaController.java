@@ -15,17 +15,17 @@ public class ColunaController {
     private ColunaService service;
 
 
-    @PostMapping("/create/{id}")
+    @PostMapping("/{id}/createCard")
     public CardResponseDTO create(@PathVariable Long id, @RequestBody CardRequestDTO dto){
         return service.createCard(dto, id);
     }
 
-    @DeleteMapping("/removeCard/{id}")
+    @DeleteMapping("/{id}/removeCard")
     public void remove(@PathVariable Long id){
         service.removeCard(id);
     }
 
-    @PutMapping("/moveCard/{id}")
+    @PutMapping("/{id}/moveCard")
     public void moveCard(@PathVariable Long id){
         service.moveCard(id);
 

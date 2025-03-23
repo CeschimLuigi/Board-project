@@ -62,6 +62,10 @@ public class ColunaServiceImpl implements ColunaService {
         var card = cardRepository.findById(id).orElseThrow(()
         -> new CardNaoEncontradoException("Card não encontrado"));
 
+        if (card.isBloqueio()){
+            throw new CardEstaCanceladoException("CARD ESTA BLOQUEADO, Desbloqueie para efetuar a ação");
+        }
+
         int proximaOrdem = card.getColuna().getOrdem() + 1;
 
         var proximaColuna = colunaRepository.findByOrdem(proximaOrdem).orElseThrow(()
