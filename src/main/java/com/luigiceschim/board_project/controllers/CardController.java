@@ -2,6 +2,7 @@ package com.luigiceschim.board_project.controllers;
 
 import com.luigiceschim.board_project.dto.card.MotivoDTO;
 import com.luigiceschim.board_project.services.cardService.CardService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,12 +17,16 @@ public class CardController {
 
 
     @PutMapping("/{id}/bloquear")
-    public void block(@PathVariable Long id, @RequestBody MotivoDTO dto){
+    public ResponseEntity<Void> block(@PathVariable Long id, @RequestBody MotivoDTO dto){
         service.bloquearCard(dto.motivo(), id);
+
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}/desbloquear")
-    public void desblock(@PathVariable Long id, @RequestBody String motivo){
+    public ResponseEntity<Void> desblock(@PathVariable Long id, @RequestBody String motivo){
         service.desbloquearCard(motivo, id);
+
+        return ResponseEntity.ok().build();
     }
 }

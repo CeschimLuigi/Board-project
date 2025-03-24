@@ -4,6 +4,7 @@ import com.luigiceschim.board_project.dto.card.CardRequestDTO;
 import com.luigiceschim.board_project.dto.card.CardResponseDTO;
 import com.luigiceschim.board_project.entities.Card;
 import com.luigiceschim.board_project.entities.TipoColuna;
+import com.luigiceschim.board_project.exceptions.CardBloqueadoException;
 import com.luigiceschim.board_project.exceptions.CardEstaCanceladoException;
 import com.luigiceschim.board_project.exceptions.CardNaoEncontradoException;
 import com.luigiceschim.board_project.exceptions.ColunaLimiteExcedidoException;
@@ -63,7 +64,7 @@ public class ColunaServiceImpl implements ColunaService {
         -> new CardNaoEncontradoException("Card não encontrado"));
 
         if (card.isBloqueio()){
-            throw new CardEstaCanceladoException("CARD ESTA BLOQUEADO, Desbloqueie para efetuar a ação");
+            throw new CardBloqueadoException("CARD ESTA BLOQUEADO, Desbloqueie para efetuar a ação");
         }
 
         int proximaOrdem = card.getColuna().getOrdem() + 1;
